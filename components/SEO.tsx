@@ -1,21 +1,21 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import siteMetadata from '@/data/siteMetadata'
-import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
-import { PostFrontMatter } from 'types/PostFrontMatter'
+import Head from "next/head";
+import { useRouter } from "next/router";
+import siteMetadata from "@/data/siteMetadata";
+import { AuthorFrontMatter } from "types/AuthorFrontMatter";
+import { PostFrontMatter } from "types/PostFrontMatter";
 
 interface CommonSEOProps {
-  title: string
-  description: string
-  ogType: string
+  title: string;
+  description: string;
+  ogType: string;
   ogImage:
     | string
     | {
-        '@type': string
-        url: string
-      }[]
-  twImage: string
-  canonicalUrl?: string
+        "@type": string;
+        url: string;
+      }[];
+  twImage: string;
+  canonicalUrl?: string;
 }
 
 const CommonSEO = ({
@@ -26,19 +26,24 @@ const CommonSEO = ({
   twImage,
   canonicalUrl,
 }: CommonSEOProps) => {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <Head>
       <title>{title}</title>
       <meta name="robots" content="follow, index" />
       <meta name="description" content={description} />
-      <meta property="og:url" content={`${siteMetadata.siteUrl}${router.asPath}`} />
+      <meta
+        property="og:url"
+        content={`${siteMetadata.siteUrl}${router.asPath}`}
+      />
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:description" content={description} />
       <meta property="og:title" content={title} />
       {Array.isArray(ogImage) ? (
-        ogImage.map(({ url }) => <meta property="og:image" content={url} key={url} />)
+        ogImage.map(({ url }) => (
+          <meta property="og:image" content={url} key={url} />
+        ))
       ) : (
         <meta property="og:image" content={ogImage} key={ogImage} />
       )}
@@ -49,20 +54,24 @@ const CommonSEO = ({
       <meta name="twitter:image" content={twImage} />
       <link
         rel="canonical"
-        href={canonicalUrl ? canonicalUrl : `${siteMetadata.siteUrl}${router.asPath}`}
+        href={
+          canonicalUrl
+            ? canonicalUrl
+            : `${siteMetadata.siteUrl}${router.asPath}`
+        }
       />
     </Head>
-  )
-}
+  );
+};
 
 interface PageSEOProps {
-  title: string
-  description: string
+  title: string;
+  description: string;
 }
 
 export const PageSEO = ({ title, description }: PageSEOProps) => {
-  const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
-  const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
+  const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
+  const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
   return (
     <CommonSEO
       title={title}
@@ -71,13 +80,13 @@ export const PageSEO = ({ title, description }: PageSEOProps) => {
       ogImage={ogImageUrl}
       twImage={twImageUrl}
     />
-  )
-}
+  );
+};
 
 export const TagSEO = ({ title, description }: PageSEOProps) => {
-  const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
-  const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
-  const router = useRouter()
+  const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
+  const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
+  const router = useRouter();
   return (
     <>
       <CommonSEO
@@ -96,12 +105,12 @@ export const TagSEO = ({ title, description }: PageSEOProps) => {
         />
       </Head>
     </>
-  )
-}
+  );
+};
 
 interface BlogSeoProps extends PostFrontMatter {
-  authorDetails?: AuthorFrontMatter[]
-  url: string
+  authorDetails?: AuthorFrontMatter[];
+  url: string;
 }
 
 export const BlogSEO = ({
@@ -114,43 +123,43 @@ export const BlogSEO = ({
   images = [],
   canonicalUrl,
 }: BlogSeoProps) => {
-  const publishedAt = new Date(date).toISOString()
-  const modifiedAt = new Date(lastmod || date).toISOString()
+  const publishedAt = new Date(date).toISOString();
+  const modifiedAt = new Date(lastmod || date).toISOString();
   const imagesArr =
     images.length === 0
       ? [siteMetadata.socialBanner]
-      : typeof images === 'string'
+      : typeof images === "string"
       ? [images]
-      : images
+      : images;
 
   const featuredImages = imagesArr.map((img) => {
     return {
-      '@type': 'ImageObject',
+      "@type": "ImageObject",
       url: `${siteMetadata.siteUrl}${img}`,
-    }
-  })
+    };
+  });
 
-  let authorList
+  let authorList;
   if (authorDetails) {
     authorList = authorDetails.map((author) => {
       return {
-        '@type': 'Person',
+        "@type": "Person",
         name: author.name,
-      }
-    })
+      };
+    });
   } else {
     authorList = {
-      '@type': 'Person',
+      "@type": "Person",
       name: siteMetadata.author,
-    }
+    };
   }
 
   const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+    "@context": "https://schema.org",
+    "@type": "Article",
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url,
+      "@type": "WebPage",
+      "@id": url,
     },
     headline: title,
     image: featuredImages,
@@ -158,17 +167,17 @@ export const BlogSEO = ({
     dateModified: modifiedAt,
     author: authorList,
     publisher: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: siteMetadata.author,
       logo: {
-        '@type': 'ImageObject',
+        "@type": "ImageObject",
         url: `${siteMetadata.siteUrl}${siteMetadata.siteLogo}`,
       },
     },
     description: summary,
-  }
+  };
 
-  const twImageUrl = featuredImages[0].url
+  const twImageUrl = featuredImages[0].url;
 
   return (
     <>
@@ -181,8 +190,12 @@ export const BlogSEO = ({
         canonicalUrl={canonicalUrl}
       />
       <Head>
-        {date && <meta property="article:published_time" content={publishedAt} />}
-        {lastmod && <meta property="article:modified_time" content={modifiedAt} />}
+        {date && (
+          <meta property="article:published_time" content={publishedAt} />
+        )}
+        {lastmod && (
+          <meta property="article:modified_time" content={modifiedAt} />
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -191,5 +204,5 @@ export const BlogSEO = ({
         />
       </Head>
     </>
-  )
-}
+  );
+};
