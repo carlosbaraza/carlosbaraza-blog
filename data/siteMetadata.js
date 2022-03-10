@@ -2,20 +2,21 @@ const siteMetadata = {
   title: "Build, Launch, Repeat",
   author: "Carlos Baraza",
   headerTitle: "Build, Launch, Repeat",
-  description: "A blog created with Next.js and Tailwind.css",
+  description:
+    "Side hustle newsletter. Humble insights of a lifetime building online products.",
   language: "en-us",
   theme: "system", // system, dark or light
   siteUrl: "https://tailwind-nextjs-starter-blog.vercel.app",
   siteRepo: "https://github.com/timlrx/tailwind-nextjs-starter-blog",
-  siteLogo: "/static/images/logo.png",
-  image: "/static/images/avatar.png",
+  siteLogo: "/static/images/logo/512w/logo-512w.png",
+  image: "/static/images/avatar-carlos-baraza-speaking.jpg",
   socialBanner: "/static/images/twitter-card.png",
   email: "me@carlosbaraza.com",
   github: "https://github.com/carlosbaraza",
   twitter: "https://twitter.com/carlosbaraza",
-  facebook: "https://facebook.com",
   youtube: "https://youtube.com/carlosbaraza",
-  linkedin: "https://www.linkedin.com",
+  facebook: undefined,
+  linkedin: "www.linkedin.com/in/carlos-baraza",
   locale: "en-US",
   analytics: {
     // If you want to use an analytics provider you have to add it to the

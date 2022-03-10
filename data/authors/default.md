@@ -1,6 +1,6 @@
 ---
 name: Tails Azimuth
-avatar: /static/images/avatar.png
+avatar: /static/images/avatar-carlos-baraza-speaking.jpg
 occupation: Professor of Atmospheric Science
 company: Stanford University
 email: address@yoursite.com

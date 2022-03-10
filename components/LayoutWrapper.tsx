@@ -1,6 +1,7 @@
 import siteMetadata from "@/data/siteMetadata";
 import headerNavLinks from "@/data/headerNavLinks";
-import Logo from "@/data/logo.svg";
+import Logo from "@/public/static/images/logo/SVG/logo.svg";
+import LogoWhite from "@/public/static/images/logo/SVG/logo-white.svg";
 import Link from "./Link";
 import SectionContainer from "./SectionContainer";
 import Footer from "./Footer";
@@ -20,11 +21,12 @@ const LayoutWrapper = ({ children }: Props) => {
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
-                <div className="mr-3">
-                  <Logo />
+                <div className="relative mr-3 flex w-16 items-center">
+                  <Logo className="w-full dark:hidden" />
+                  <LogoWhite className="hidden w-full dark:block" />
                 </div>
                 {typeof siteMetadata.headerTitle === "string" ? (
-                  <div className="hidden h-6 text-2xl font-semibold sm:block">
+                  <div className="hidden h-6 text-2xl font-semibold leading-none sm:block">
                     {siteMetadata.headerTitle}
                   </div>
                 ) : (
