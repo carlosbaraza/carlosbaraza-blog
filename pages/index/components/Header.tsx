@@ -29,7 +29,7 @@ export const Header: FC<Props> = () => {
             />
           </div>
 
-          <div className="flex flex-1 flex-col justify-center space-y-3 overflow-hidden rounded-tr-3xl rounded-br-3xl bg-gray-800 p-4 sm:rounded-3xl sm:p-6 md:p-7">
+          <div className="flex flex-1 flex-col justify-center space-y-3 overflow-hidden rounded-tr-3xl rounded-br-3xl bg-primary-800 p-4 sm:rounded-3xl sm:p-6 md:p-7">
             <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl  md:text-5xl">
               Carlos Baraza
             </h2>
