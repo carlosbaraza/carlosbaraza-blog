@@ -146,12 +146,14 @@ export async function getAllFilesFrontMatter(folder: "blog") {
       allFrontMatter.push({
         ...frontmatter,
         slug: formatSlug(fileName),
-        date: frontmatter.date
-          ? new Date(frontmatter.date).toISOString()
+        date_published: frontmatter.date_published
+          ? new Date(frontmatter.date_published).toISOString()
           : null,
       });
     }
   });
 
-  return allFrontMatter.sort((a, b) => dateSortDesc(a.date, b.date));
+  return allFrontMatter.sort((a, b) =>
+    dateSortDesc(a.date_published, b.date_published)
+  );
 }

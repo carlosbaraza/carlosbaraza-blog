@@ -1,0 +1,34 @@
+---
+title: How my colleague almost lost root access in his own machine
+slug: how-my-colleague-almost-lost-root-access-in-his-own-machine
+date_published: "2015-07-09T00:00:00.000Z"
+date_updated: "2015-07-09T00:00:00.000Z"
+tags: []
+draft: false
+summary: "Today we were trying to set up a CI runner in a the machine of one of my colleagues, who is going on holidays. He would let the machine…"
+---
+
+Today we were trying to set up a CI runner in a the machine of one of my colleagues, who is going on holidays. He would let the machine available, so we could have an extra test runner for one of our projects.
+
+In order to set up the runner, we created a user in the machine and set up the environment. After some set up we realised it would be better to use an existing user in the machine. Now is when my friend decided to remove the unnecessary user (via command line) and accidentally deleted the user and the admin group on the machine (WTF!!!).
+
+After this unfortunate accident, everything got complicated because recreating the group was impossible without root access (provided to the user via the admin group). Plus, the actual OSX user management tool freezes due to the missing group. Using the Time Machine to recover a previous state was also not possible without admin access.
+
+Later, after some panic and online research, we found out that it is possible to restart an Apple machine in Single User mode, holding cmd + s during the power up. This shortcut boot the system up and logs in as root, displaying the shell prompt. From this point on, it is just a matter of restoring the default admin group.
+
+1.  Mount the filesystem: /sbin/mount -uw /
+2.  Start opendirectoryd: launchctl load /System/Library/LaunchDaemons/com.apple.opendirectoryd.plist
+3.  Create _admin_ group: dscl . create /Groups/admin
+4.  dscl . create /Groups/admin gid 80
+5.  dscl . create /Groups/admin RealName "Administrators"
+6.  Reatach your user to admin: dseditgroup -o edit -a myuser -t user admin
+7.  Confirm that the user is attached to the group: dseditgroup -L admin
+8.  Reboot and fix the mess from the normal OSX session.
+
+Fortunately, the machine did not have FileVault 2 enabled or firmware password and we could solve this issue without the awkward moment of reporting that you deleted the admin group by mistake.
+
+As a note for the future, set a firmware password and enable FileVault2 if you want to avoid some eventual thief or unauthorised person to escalate privileges in your machine and access your non-encrypted data.
+
+---
+
+_Originally published at_ [_www.carlosbaraza.com_](http://www.carlosbaraza.com/how-my-colleague-almost-lost-root-access-in-his-own-machine/) _on July 9, 2015._

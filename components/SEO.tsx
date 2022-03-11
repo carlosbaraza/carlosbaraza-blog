@@ -117,14 +117,14 @@ export const BlogSEO = ({
   authorDetails,
   title,
   summary,
-  date,
-  lastmod,
+  date_published,
+  date_updated,
   url,
   images = [],
   canonicalUrl,
 }: BlogSeoProps) => {
-  const publishedAt = new Date(date).toISOString();
-  const modifiedAt = new Date(lastmod || date).toISOString();
+  const publishedAt = new Date(date_published).toISOString();
+  const modifiedAt = new Date(date_updated || date_published).toISOString();
   const imagesArr =
     images.length === 0
       ? [siteMetadata.socialBanner]
@@ -190,10 +190,10 @@ export const BlogSEO = ({
         canonicalUrl={canonicalUrl}
       />
       <Head>
-        {date && (
+        {date_published && (
           <meta property="article:published_time" content={publishedAt} />
         )}
-        {lastmod && (
+        {date_updated && (
           <meta property="article:modified_time" content={modifiedAt} />
         )}
         <script

@@ -1,0 +1,24 @@
+---
+title: Webpack Bundle Analysis Resources
+slug: webpack-bundle-analysis-resources
+date_published: "2021-01-25T22:15:25.000Z"
+date_updated: "2021-05-10T20:15:05.000Z"
+tags: []
+draft: false
+---
+
+To be honest, optimising a Webpack bundle is probably one of the most annoying things I have to do as a Software Engineer.
+
+Some resources to help you with it:
+
+- [Blog post with multiple tools](https://medium.com/@joeclever/three-simple-ways-to-inspect-a-webpack-bundle-7f6a8fe7195d)
+- [Blog post on how to reduce NextJS bundle](https://medium.com/ne-digital/how-to-reduce-next-js-bundle-size-68f7ac70c375)
+
+## Tools
+
+- [webpack-module-analyser](https://www.npmjs.com/package/webpack-bundle-analyzer)
+- To understand why something is being bundled: [`whybundled` npm package](https://www.npmjs.com/package/whybundled). This requires generating Webpack stats with `[webpack-stats-plugin](https://www.npmjs.com/package/webpack-stats-plugin)`.
+- To debug production deployments: `npx bundle-wizard [https://example.com](https://inpractise.com)`
+- Chrome DevTools Coverage: useful to know how bad your code coverage usage is.
+
+Good luck with this not-so-nice-but-quite-important task!

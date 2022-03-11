@@ -1,0 +1,36 @@
+---
+title: Request object in Rails 2.3.18
+slug: request-object-in-rails-2-3-18
+date_published: "2014-03-20T00:00:00.000Z"
+date_updated: "2014-03-20T00:00:00.000Z"
+tags: []
+draft: false
+summary: "During the execution of an action in Rails we can access to all the parameter of the request via de request object. This object includes…"
+---
+
+During the execution of an action in Rails we can access to all the parameter of the request via de request object. This object includes the following useful methods:
+
+- **headers** — Returns a hash containing the headers associated with the request.
+- **body** — Returns an StingIO with the body.
+- **host** — The hostname used for this request.
+- **domain** — The hostname without the first part (usually “www”).
+- **format** — The content type requested by the client.
+- **method** — The HTTP method used for the request.
+- **get?, post?, put?, delete?, head?** — Returns true if the HTTP method is get/post/put/delete/head.
+- **port** — The port number (integer) used for the request.
+- **protocol** — The protocol used for the request.
+- **query_string** — The query string part of the URL — everything after “?”.
+- **remote_ip** — The IP address of the client.
+- **url** — The entire URL used for the request.
+
+I found pretty useful the headers method to get headers like this:
+
+    request.headers['CONTENT_TYPE']
+
+Also you can the raw body like follows:
+
+    request.body.read
+
+---
+
+_Originally published at_ [_www.carlosbaraza.com_](http://www.carlosbaraza.com/request-object-in-rails-2-3-18/) _on March 20, 2014._

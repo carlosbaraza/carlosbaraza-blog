@@ -1,0 +1,57 @@
+---
+title: Optional parameters and default parameters (>=Ruby 1.9).
+slug: optional-parameters-and-default-parameters----ruby-1-9--
+date_published: "2014-04-17T00:00:00.000Z"
+date_updated: "2014-04-17T00:00:00.000Z"
+tags: []
+draft: false
+summary: "Do you fully understand what will happen if I define a method like this?"
+---
+
+Do you fully understand what will happen if I define a method like this?
+
+**Note:** This method definition will fail in _Ruby 1.8.7_ or lower, as it is not allowed to list optional parameters in the middle of the list (The last parameter “e” should be moved somewhere before the optional parameter “\*p” and the default-valued parameters).
+
+If then we call the method in irb:
+
+    # Can not call with less parameters than the number of mandatory parameters
+    irb(main):009:0> my_method(1,2)
+    ArgumentError: wrong number of arguments (2 for 3+)
+      from (irb):1:in `my_method'
+      from (irb):9
+      from /usr/bin/irb:12:in `<main>'
+
+    # First mandatory parameters are assigned
+    irb(main):010:0> my_method(1,2,3)
+    a: 1, b: 2, c: 15, d: 35, p: [], e: 3
+
+    # Then the first default-valued parameter gets a value.
+    irb(main):011:0> my_method(1,2,3,4)
+    a: 1, b: 2, c: 3, d: 35, p: [], e: 4
+
+    # Then both default-valued parameters get a value.
+    irb(main):012:0> my_method(1,2,3,4,5)
+    a: 1, b: 2, c: 3, d: 4, p: [], e: 5
+
+    # Finally the optional parameter get values within an Array object. irb(main):013:0> my_method(1,2,3,4,5,6)
+    a: 1, b: 2, c: 3, d: 4, p: [5], e: 6
+
+    irb(main):014:0> my_method(1,2,3,4,5,6,7)
+    a: 1, b: 2, c: 3, d: 4, p: [5, 6], e: 7
+
+So, to sum up, the order in which ruby assign the parameter is:
+
+1.  Mandatory parameters. In our case ‘a’, ‘b’ and ‘e’
+2.  Parameters with default value, but keeping the order in the method definition. If the last parameter defined is mandatory, the last parameter given to the method call will be the last mandatory parameter value, not the first parameter with default value.
+3.  Finally, if all the parameters (mandatory and with default value) have a value, all the next given values will be included in the Array of the optional parameter (‘p’ in our case).
+
+Just as a final note, there are two things that will cause a syntax error:
+
+- More than one optional parameters in a method definition.
+- Default value parameter listed after the optional parameter.
+
+_Cheers and happy rubying!_
+
+---
+
+_Originally published at_ [_www.carlosbaraza.com_](http://www.carlosbaraza.com/optional-parameters-and-default-parameters-ruby-1-9/) _on April 17, 2014._

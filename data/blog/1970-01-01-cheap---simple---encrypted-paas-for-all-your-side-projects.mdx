@@ -1,0 +1,53 @@
+---
+title: Cheap + Simple + Encrypted PaaS for all your side projects
+slug: cheap---simple---encrypted-paas-for-all-your-side-projects
+date_published: "1970-01-01T00:00:00.000Z"
+date_updated: "2020-07-08T01:07:48.000Z"
+tags: []
+draft: true
+summary: "What is the problem?"
+---
+
+## What is the problem?
+
+As a web engineer, I need a cheap semi-professional playground where I could deploy all my side-projects and scale them if I really need to (never).
+
+I often found myself slowed down and overwhelmed by the dev ops I needed to perform just to start a new project. Creating a new project was usually bringing many negative unconscious thoughts, imagining all the dev ops steps I needed to complete just to get started: set up VPS, configure DNS, configure Nginx, reread how to configure Nginx, configure Let’s Encrypt, set up production environment, pay the new increased bill… The result was a cumbersome feeling of procrastination.
+
+I needed a platform that allowed me to hack something quickly and deploy it in a kind of professional environment, so I could start showing it off to my friends/Hacker News/Twitter/Reddit/nameit immediately.
+
+## Requirements:
+
+- Cheap: less than $15/month for all my side projects.
+- Extremely simple to deploy new project: No dev ops needed.
+- No technology stack enforced. Usually Node.js backend + SPA in the frontend. However, I like trying new things, and therefore I want the freedom to use whatever random language or technology that caught my eye that day.
+- TLS Encryption (free, of course).
+- Domain names for each project.
+
+## What I came up with:
+
+![](/content/images/downloaded_images/Cheap---Simple---Encrypted-PaaS-for-all-your-side-projects/1-silDUZvr7KVuQODmI3ic4w.png)
+
+## New project process
+
+These are the needed steps to deploy a new project once you completed the initial configuration (below).
+
+1.  Create a new container from your repository in GitHub or BitBucket
+2.  Expose the port 80.
+3.  Assign it the following environment variables to the container:
+
+- LETSENCRYPT_HOST=newcoolproject.appy.land: Used to register the certificate. Usually the same than VIRTUAL_HOST.
+- VIRTUAL_HOST=newcoolproject.appy.land: host to be used to access the app.
+- LETSENCRYPT_EMAIL=myemail@appy.land: Used to register the certificate. You will receive alerts and other useful information in this email.
+
+That’s it. You are done. The certificate will be automatically generated and all the encrypted traffic will be redirected to the container.
+
+---
+
+If you don’t use a wildcard  *CNAME (\*.appy.land),* like I do. You just need to point a CNAME to the _nginx-proxy_ service endpoint.
+
+![](/content/images/downloaded_images/Cheap---Simple---Encrypted-PaaS-for-all-your-side-projects/1-DAkjKjGORsBWfhBolz4_4A.png)
+
+## Initial configuration
+
+Have you ever heard of Docker Cloud? Docker Cloud allows you to orchestrate containers from a simple UI.

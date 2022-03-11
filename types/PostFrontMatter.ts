@@ -1,8 +1,8 @@
 export type PostFrontMatter = {
   title: string;
-  date: string;
+  date_published: string;
   tags: string[];
-  lastmod?: string;
+  date_updated?: string;
   draft?: boolean;
   summary?: string;
   images?: string[];

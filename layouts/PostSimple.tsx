@@ -22,7 +22,7 @@ export default function PostLayout({
   prev,
   children,
 }: Props) {
-  const { slug, date, title } = frontMatter;
+  const { slug, date_published, title } = frontMatter;
 
   return (
     <SectionContainer>
@@ -36,7 +36,9 @@ export default function PostLayout({
                 <div>
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>{formatDate(date)}</time>
+                    <time dateTime={date_published}>
+                      {formatDate(date_published)}
+                    </time>
                   </dd>
                 </div>
               </dl>

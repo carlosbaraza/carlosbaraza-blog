@@ -37,7 +37,7 @@ const genFrontMatter = (answers) => {
 
   let frontMatter = dedent`---
   title: ${answers.title ? answers.title : "Untitled"}
-  date: '${date}'
+  date_published: '${date}'
   tags: [${answers.tags ? tags : ""}]
   draft: ${answers.draft === "yes" ? true : false}
   summary: ${answers.summary ? answers.summary : " "}

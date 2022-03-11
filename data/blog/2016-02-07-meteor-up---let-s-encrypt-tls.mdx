@@ -1,0 +1,112 @@
+---
+title: Meteor Up + Let’s Encrypt TLS
+slug: meteor-up---let-s-encrypt-tls
+date_published: "2016-02-07T00:00:00.000Z"
+date_updated: "2016-02-07T00:00:00.000Z"
+tags: []
+draft: false
+summary: "Let’s encrypt is a new certificate authority which issues TLS certificates for free."
+---
+
+[**Let’s encrypt**](https://letsencrypt.org/) is a new certificate authority which issues TLS certificates for free.
+
+Today we are going to learn how to generate a certificate, add it to your Meteor project and deploy the application with [Meteor Up X](https://github.com/arunoda/meteor-up/tree/mupx).
+
+The first step is to configure your server using mupx setup, ensuring your mup.json doesn't define the property ssl.
+
+Now we want to ensure that the server is not binding to the port 80 meanwhile we generate the certificate. This is needed in order to use the standalone plugin of letsencrypt, as it spawns a web server that the Certificate Agent uses to validate the domain.
+
+    mupx stop
+
+Then we ssh into the server and we clone the repository:
+
+    sudo git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
+
+We run the standalone certificate generator and we follow the wizard giving the email and domains:
+
+    sudo /opt/letsencrypt/letsencrypt-auto certonly
+
+You will probably receive the following output when the wizard completes:
+
+    IMPORTANT NOTES:
+     - If you lose your account credentials, you can recover through
+       e-mails sent to myemail@email.com.
+     - Congratulations! Your certificate and chain have been saved at
+       /etc/letsencrypt/live/example.com/fullchain.pem. Your cert
+       will expire on 2016-05-06. To obtain a new version of the
+       certificate in the future, simply run Let's Encrypt again.
+     - Your account credentials have been saved in your Let's Encrypt
+       configuration directory at /etc/letsencrypt. You should make a
+       secure backup of this folder now. This configuration directory will
+       also contain certificates and private keys obtained by Let's
+       Encrypt so making regular backups of this folder is ideal.
+     - If you like Let's Encrypt, please consider supporting our work by:
+
+       Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+       Donating to EFF:                    https://eff.org/donate-le
+
+We can now exit the ssh session.
+
+From the project folder we copy the generated certificates from the server:
+
+    scp root@example.com:/etc/letsencrypt/live/example.com/fullchain.pem .
+
+    scp root@example.com:/etc/letsencrypt/live/example.com/privkey.pem .
+
+Now we need to generate a bundle with the both keys to be used by nginx:
+
+    cat fullchain.pem privkey.pem > bundle.crt
+
+Finally we configure Meteor Up X with the following mup.json configuration:
+
+    {
+      // Server authentication info
+      "servers": [
+        {
+          "host": "example.com",
+          "username": "root"
+        }
+      ],
+
+    // Install MongoDB in the server, does not destroy local MongoDB on future setup
+      "setupMongo": false,
+
+    // Show a progress bar during the upload of the bundle to the server.
+      // Might cause an error in some rare cases if set to true, for instance in Shippable CI
+      "enableUploadProgressBar": true,
+
+    // Application name (No spaces)
+      "appName": "example",
+
+    // Location of app (local directory)
+      "app": ".",
+
+    // Configure environment
+      "env": {
+        "PORT": 80,
+        "ROOT_URL": "http://www.example.com",
+        "MONGO_URL": "mongodb://...",
+      },
+
+    "ssl": {
+        "certificate": "./bundle.crt", // this is a bundle of certificates
+        "key": "./privkey.pem", // this is the private key of the certificate
+        "port": 443
+      },
+
+    "deployCheckWaitTime": 15
+    }
+
+Setup the environment and copy the certificate:
+
+    mupx setup
+
+You should ensure that you have the package force-ssl installed in you meteor project. If not, run meteor add force-ssl.
+
+Finally, everything is ready to run mupx deploy and enjoy your new free and secure encryption.
+
+**Note:** After 90 days, the certificate will expire and the same process should be repeated to renew the certificate. [It is currently schedule the integration of](https://forums.meteor.com/t/setting-up-ssl-with-letsencrypt-and-meteorup/14457/15) [letsencrypt](https://forums.meteor.com/t/setting-up-ssl-with-letsencrypt-and-meteorup/14457/15) [within](https://forums.meteor.com/t/setting-up-ssl-with-letsencrypt-and-meteorup/14457/15) [mupx](https://forums.meteor.com/t/setting-up-ssl-with-letsencrypt-and-meteorup/14457/15).
+
+---
+
+_Originally published at_ [_www.carlosbaraza.com_](http://www.carlosbaraza.com/meteor-up-lets-encrypt-tls/) _on February 7, 2016._

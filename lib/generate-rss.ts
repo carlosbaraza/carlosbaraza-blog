@@ -9,7 +9,7 @@ const generateRssItem = (post: PostFrontMatter) => `
     <title>${escape(post.title)}</title>
     <link>${siteMetadata.siteUrl}/blog/${post.slug}</link>
     ${post.summary && `<description>${escape(post.summary)}</description>`}
-    <pubDate>${new Date(post.date).toUTCString()}</pubDate>
+    <pubDate>${new Date(post.date_published).toUTCString()}</pubDate>
     <author>${siteMetadata.email} (${siteMetadata.author})</author>
     ${post.tags && post.tags.map((t) => `<category>${t}</category>`).join("")}
   </item>
@@ -26,7 +26,9 @@ const generateRss = (posts: PostFrontMatter[], page = "feed.xml") => `
   siteMetadata.author
 })</managingEditor>
       <webMaster>${siteMetadata.email} (${siteMetadata.author})</webMaster>
-      <lastBuildDate>${new Date(posts[0].date).toUTCString()}</lastBuildDate>
+      <lastBuildDate>${new Date(
+        posts[0].date_published
+      ).toUTCString()}</lastBuildDate>
       <atom:link href="${
         siteMetadata.siteUrl
       }/${page}" rel="self" type="application/rss+xml"/>

@@ -1,0 +1,22 @@
+---
+title: GraphQL authentication — PassportJS + Apollo Server
+slug: graphql-authentication---passportjs---apollo-server
+date_published: "1970-01-01T00:00:00.000Z"
+date_updated: "2020-07-08T01:07:48.000Z"
+tags: []
+draft: true
+summary: "PassportJS is a great and mature library that supports many authentication methods. Therefore, it makes sense to use it."
+---
+
+[PassportJS](http://www.passportjs.org/) is a great and mature library that supports many authentication methods. Therefore, it makes sense to use it.
+
+However, PassportJS is using good old classic REST. Now we are faced with the question: should we handle authentication using GraphQL or keep using PassportJS?
+
+Authentication can be handled separately adding a middleware checking authentication before every resolver. This way we can focus our GraphQL effort on more meaningful things.
+
+Resources:
+
+- Example using Express middleware and Passport: [https://dev.to/hasusozam/passport-jwt-with-graphql-3gdj](https://dev.to/hasusozam/passport-jwt-with-graphql-3gdj)
+- Example of authentication directly on GraphQL: [https://github.com/Volst/graphql-authentication](https://github.com/Volst/graphql-authentication)
+- AccountsJS: Full Stack Authentication framework for JS using GraphQL [https://github.com/accounts-js/accounts](https://github.com/accounts-js/accounts)
+-

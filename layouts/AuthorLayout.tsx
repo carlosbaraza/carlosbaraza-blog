@@ -15,6 +15,7 @@ export default function AuthorLayout({ children, frontMatter }: Props) {
     avatar,
     occupation,
     company,
+    companyUrl,
     email,
     twitter,
     linkedin,
@@ -31,7 +32,7 @@ export default function AuthorLayout({ children, frontMatter }: Props) {
           </h1>
         </div>
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
-          <div className="flex flex-col items-center space-x-2 pt-8">
+          <div className="flex flex-col items-center space-x-2 pt-8 xl:sticky xl:top-0 xl:items-start">
             <Image
               src={avatar}
               alt="avatar"
@@ -43,7 +44,12 @@ export default function AuthorLayout({ children, frontMatter }: Props) {
               {name}
             </h3>
             <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
-            <div className="text-gray-500 dark:text-gray-400">{company}</div>
+            <a
+              href={companyUrl}
+              className="text-primary-500 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-200"
+            >
+              {company}
+            </a>
             <div className="flex space-x-3 pt-6">
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />

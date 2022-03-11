@@ -40,7 +40,7 @@ export default function PostLayout({
   prev,
   children,
 }: Props) {
-  const { slug, fileName, date, title, tags } = frontMatter;
+  const { slug, fileName, date_published, title, tags } = frontMatter;
 
   return (
     <SectionContainer>
@@ -58,8 +58,8 @@ export default function PostLayout({
                 <div>
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(
+                    <time dateTime={date_published}>
+                      {new Date(date_published).toLocaleDateString(
                         siteMetadata.locale,
                         postDateTemplate
                       )}
