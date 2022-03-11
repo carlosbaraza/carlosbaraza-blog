@@ -5,6 +5,7 @@ import "katex/dist/katex.css";
 import "@fontsource/inter/variable-full.css";
 
 import { ThemeProvider } from "next-themes";
+import { useRemoteRefresh } from "next-remote-refresh/hook";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
@@ -17,6 +18,7 @@ const isDevelopment = process.env.NODE_ENV === "development";
 const isSocket = process.env.SOCKET;
 
 export default function App({ Component, pageProps }: AppProps) {
+  useRemoteRefresh();
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
       <Head>

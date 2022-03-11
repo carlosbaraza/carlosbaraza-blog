@@ -6,11 +6,14 @@ const siteMetadata = {
     "Side hustle newsletter. Humble insights of a lifetime building online products.",
   language: "en-us",
   theme: "system", // system, dark or light
-  siteUrl: "https://tailwind-nextjs-starter-blog.vercel.app",
+  siteUrl:
+    process.env.NODE_ENV === "production"
+      ? "https://carlosbaraza.com"
+      : "http://localhost:3001",
   siteRepo: "https://github.com/timlrx/tailwind-nextjs-starter-blog",
   siteLogo: "/static/images/logo/512w/logo-512w.png",
   image: "/static/images/avatar-carlos-baraza-speaking.jpg",
-  socialBanner: "/static/images/twitter-card.png",
+  socialBanner: "/static/images/twitter-card.jpg",
   email: "me@carlosbaraza.com",
   github: "https://github.com/carlosbaraza",
   twitter: "https://twitter.com/carlosbaraza",
