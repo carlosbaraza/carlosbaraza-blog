@@ -4,12 +4,14 @@ import { ComponentProps, useState } from "react";
 import Pagination from "@/components/Pagination";
 import formatDate from "@/lib/utils/formatDate";
 import { PostFrontMatter } from "types/PostFrontMatter";
+import { Tags } from "pages/blog/components/Tags";
 
 interface Props {
   posts: PostFrontMatter[];
   title: string;
   initialDisplayPosts?: PostFrontMatter[];
   pagination?: ComponentProps<typeof Pagination>;
+  tags?: Record<string, number>;
 }
 
 export default function ListLayout({
@@ -17,6 +19,7 @@ export default function ListLayout({
   title,
   initialDisplayPosts = [],
   pagination,
+  tags,
 }: Props) {
   const [searchValue, setSearchValue] = useState("");
   const filteredBlogPosts = posts.filter((frontMatter) => {
@@ -61,7 +64,9 @@ export default function ListLayout({
               />
             </svg>
           </div>
+          {tags && Object.keys(tags).length > 0 ? <Tags tags={tags} /> : null}
         </div>
+
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!filteredBlogPosts.length && "No posts found."}
           {displayPosts.map((frontMatter) => {

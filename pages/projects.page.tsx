@@ -16,7 +16,26 @@ export default function Projects() {
             Projects
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Showcase your projects with a hero image (16 x 9)
+            A busy mind is always looking for new challenges. These are some of
+            my projects. You can find more on my{" "}
+            <a
+              href="http://github.com/carlosbaraza"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-500 hover:text-slate-600"
+            >
+              GitHub (@carlosbaraza)
+            </a>{" "}
+            or on{" "}
+            <a
+              href="http://twitter.com/carlosbaraza"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-500 hover:text-slate-600"
+            >
+              Twitter (@carlosbaraza)
+            </a>
+            .
           </p>
         </div>
         <div className="container py-12">
