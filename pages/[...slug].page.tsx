@@ -1,13 +1,13 @@
-import fs from "fs";
+import { MDXLayoutRenderer } from "@/components/MDXComponents";
 import PageTitle from "@/components/PageTitle";
 import generateRss from "@/lib/generate-rss";
-import { MDXLayoutRenderer } from "@/components/MDXComponents";
 import {
   formatSlug,
-  getAllFilesFrontMatter,
-  getFileBySlug,
-  getFiles,
+  getAllBlogFilesFrontMatter,
+  getAuthorFileBySlug,
+  getBlogFileBySlug,
 } from "@/lib/mdx";
+import fs from "fs";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { AuthorFrontMatter } from "types/AuthorFrontMatter";
 import { PostFrontMatter } from "types/PostFrontMatter";
@@ -16,11 +16,11 @@ import { Toc } from "types/Toc";
 const DEFAULT_LAYOUT = "PostLayout";
 
 export async function getStaticPaths() {
-  const posts = getFiles("blog");
+  const posts = await getAllBlogFilesFrontMatter();
   return {
     paths: posts.map((p) => ({
       params: {
-        slug: formatSlug(p).split("/"),
+        slug: formatSlug(p.slug || p.fileName).split("/"),
       },
     })),
     fallback: false,
@@ -35,19 +35,17 @@ export const getStaticProps: GetStaticProps<{
   next?: { slug: string; title: string };
 }> = async ({ params }) => {
   const slug = (params.slug as string[]).join("/");
-  const allPosts = await getAllFilesFrontMatter("blog");
+  const allPosts = await getAllBlogFilesFrontMatter();
   const postIndex = allPosts.findIndex(
     (post) => formatSlug(post.slug) === slug
   );
   const prev: { slug: string; title: string } = allPosts[postIndex + 1] || null;
   const next: { slug: string; title: string } = allPosts[postIndex - 1] || null;
-  const post = await getFileBySlug<PostFrontMatter>("blog", slug);
-  // @ts-ignore
+  const post = await getBlogFileBySlug(slug);
+
   const authorList = post.frontMatter.authors || ["default"];
   const authorPromise = authorList.map(async (author) => {
-    const authorResults = await getFileBySlug<AuthorFrontMatter>("authors", [
-      author,
-    ]);
+    const authorResults = await getAuthorFileBySlug(author);
     return authorResults.frontMatter;
   });
   const authorDetails = await Promise.all(authorPromise);

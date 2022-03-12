@@ -10,4 +10,6 @@ export type AuthorFrontMatter = {
   linkedin: string;
   github: string;
   bio: string;
+  fileName: string;
+  slug: string;
 };

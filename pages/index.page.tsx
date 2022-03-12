@@ -2,7 +2,7 @@ import Link from "@/components/Link";
 import { PageSEO } from "@/components/SEO";
 import Tag from "@/components/Tag";
 import siteMetadata from "@/data/siteMetadata";
-import { getAllFilesFrontMatter } from "@/lib/mdx";
+import { getAllBlogFilesFrontMatter } from "@/lib/mdx";
 import formatDate from "@/lib/utils/formatDate";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { PostFrontMatter } from "types/PostFrontMatter";
@@ -14,7 +14,7 @@ const MAX_DISPLAY = 5;
 export const getStaticProps: GetStaticProps<{
   posts: PostFrontMatter[];
 }> = async () => {
-  const posts = await getAllFilesFrontMatter("blog");
+  const posts = await getAllBlogFilesFrontMatter();
 
   return { props: { posts } };
 };
@@ -58,7 +58,7 @@ export default function Home({
                           <div>
                             <h2 className="text-2xl font-bold leading-8 tracking-tight">
                               <Link
-                                href={`/blog/${slug}`}
+                                href={`/${slug}`}
                                 className="text-gray-900 dark:text-gray-100"
                               >
                                 {title}
@@ -76,7 +76,7 @@ export default function Home({
                         </div>
                         <div className="text-base font-medium leading-6">
                           <Link
-                            href={`/blog/${slug}`}
+                            href={`/${slug}`}
                             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                             aria-label={`Read "${title}"`}
                           >

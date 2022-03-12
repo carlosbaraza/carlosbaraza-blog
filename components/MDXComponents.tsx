@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import React, { useMemo } from "react";
 import { ComponentMap, getMDXComponent } from "mdx-bundler/client";
 import Image from "./Image";
@@ -17,12 +16,10 @@ const Wrapper: React.ComponentType<{ layout: string }> = ({
 
 export const MDXComponents: ComponentMap = {
   Image,
-  //@ts-ignore
   TOCInline,
   a: CustomLink,
   pre: Pre,
   wrapper: Wrapper,
-  //@ts-ignore
   BlogNewsletterForm,
 };
 

@@ -6,6 +6,7 @@ interface TOCInlineProps {
   fromHeading?: number;
   toHeading?: number;
   asDisclosure?: boolean;
+  asDisclosureOpen?: boolean;
   exclude?: string | string[];
 }
 
@@ -30,6 +31,7 @@ const TOCInline = ({
   fromHeading = 1,
   toHeading = 6,
   asDisclosure = false,
+  asDisclosureOpen,
   exclude = "",
 }: TOCInlineProps) => {
   const re = Array.isArray(exclude)
@@ -59,11 +61,14 @@ const TOCInline = ({
   return (
     <>
       {asDisclosure ? (
-        <details open>
-          <summary className="ml-6 pt-2 pb-2 text-xl font-bold">
+        <details
+          open={asDisclosureOpen ?? true}
+          className="space-y-2 rounded-2xl px-5 py-5"
+        >
+          <summary className="cursor-pointer text-xl font-bold">
             Table of Contents
           </summary>
-          <div className="ml-6">{tocList}</div>
+          <div>{tocList}</div>
         </details>
       ) : (
         tocList

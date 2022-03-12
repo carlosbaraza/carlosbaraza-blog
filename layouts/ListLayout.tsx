@@ -4,6 +4,7 @@ import { ComponentProps, useState } from "react";
 import Pagination from "@/components/Pagination";
 import formatDate from "@/lib/utils/formatDate";
 import { PostFrontMatter } from "types/PostFrontMatter";
+
 interface Props {
   posts: PostFrontMatter[];
   title: string;
@@ -32,7 +33,7 @@ export default function ListLayout({
 
   return (
     <>
-      <div className="divide-y">
+      <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
@@ -61,12 +62,12 @@ export default function ListLayout({
             </svg>
           </div>
         </div>
-        <ul>
+        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!filteredBlogPosts.length && "No posts found."}
           {displayPosts.map((frontMatter) => {
             const { slug, date_published, title, summary, tags } = frontMatter;
             return (
-              <li key={slug} className="py-4">
+              <li key={slug} className="py-8">
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                   <dl>
                     <dt className="sr-only">Published on</dt>
@@ -80,21 +81,25 @@ export default function ListLayout({
                     <div>
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
                         <Link
-                          href={`/blog/${slug}`}
+                          href={`/${slug}`}
                           className="text-gray-900 dark:text-gray-100"
                         >
                           {title}
                         </Link>
                       </h3>
-                      <div className="flex flex-wrap">
-                        {tags.map((tag) => (
-                          <Tag key={tag} text={tag} />
-                        ))}
+                      {tags.length > 0 ? (
+                        <div className="flex flex-wrap">
+                          {tags.map((tag) => (
+                            <Tag key={tag} text={tag} />
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                    {summary ? (
+                      <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                        {summary}
                       </div>
-                    </div>
-                    <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                      {summary}
-                    </div>
+                    ) : null}
                   </div>
                 </article>
               </li>

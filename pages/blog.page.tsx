@@ -1,18 +1,18 @@
-import { getAllFilesFrontMatter } from "@/lib/mdx";
+import { getAllBlogFilesFrontMatter } from "@/lib/mdx";
 import siteMetadata from "@/data/siteMetadata";
 import ListLayout from "@/layouts/ListLayout";
 import { PageSEO } from "@/components/SEO";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { ComponentProps } from "react";
 
-export const POSTS_PER_PAGE = 10;
+export const POSTS_PER_PAGE = 50;
 
 export const getStaticProps: GetStaticProps<{
   posts: ComponentProps<typeof ListLayout>["posts"];
   initialDisplayPosts: ComponentProps<typeof ListLayout>["initialDisplayPosts"];
   pagination: ComponentProps<typeof ListLayout>["pagination"];
 }> = async () => {
-  const posts = await getAllFilesFrontMatter("blog");
+  const posts = await getAllBlogFilesFrontMatter();
   const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE);
   const pagination = {
     currentPage: 1,

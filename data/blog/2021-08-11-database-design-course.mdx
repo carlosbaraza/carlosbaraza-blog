@@ -146,19 +146,23 @@ Standard for drawing schemas
 - Cardinality:
   - Multiple lines represent Many
   - One vertical line represents 1
-  - !\[\[eer-cardinality.png\]\]
 - Modality:
   - A 0 represents that the foreign key can be null, so there could be rows that don't have a parent.
     - Read as 0 or 1.
   - A line represents 1. Read as 1 or 1 when two vertical lines are displayed. It means that the foreign key has a NOT NULL constraint.
 
-![](/content/images/2021/08/eer-cardinality.png)
+<figure>
+  <img
+    alt="FocusKeep screenshot"
+    src="/content/images/2021/08/eer-cardinality.png"
+  />
+  <figcaption className="text-center">Cardinality</figcaption>
+</figure>
 
-Cardinality
-
-![](/content/images/2021/08/eer-modality.png)
-
-Modality
+<figure>
+  <img alt="Modality" src="/content/images/2021/08/eer-modality.png" />
+  <figcaption className="text-center">Modality</figcaption>
+</figure>
 
 ## Normalization
 
@@ -226,7 +230,9 @@ Cons:
     - | user_id | name | referred_by |
     - Self join on the referred_by to find the user and the referral
 
-  SELECT u1.name, u2.name AS "referred_by"
-  FROM user AS u1
-  INNER JOIN user AS u2
-  ON u1.referred_by = u2.user_id
+```sql
+SELECT u1.name, u2.name AS "referred_by"
+FROM user AS u1
+INNER JOIN user AS u2
+ON u1.referred_by = u2.user_id
+```
