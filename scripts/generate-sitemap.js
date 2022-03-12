@@ -7,8 +7,8 @@ const siteMetadata = require("../data/siteMetadata");
 (async () => {
   const prettierConfig = await prettier.resolveConfig("./.prettierrc.js");
   const pages = await globby([
-    "pages/*.js",
-    "pages/*.tsx",
+    "pages/*.page.js",
+    "pages/*.page.tsx",
     "data/blog/**/*.mdx",
     "data/blog/**/*.md",
     "public/tags/**/*.xml",
@@ -64,6 +64,5 @@ const siteMetadata = require("../data/siteMetadata");
     parser: "html",
   });
 
-  // eslint-disable-next-line no-sync
   fs.writeFileSync("public/sitemap.xml", formatted);
 })();

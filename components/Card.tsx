@@ -1,12 +1,11 @@
 import Image from "./Image";
 import Link from "./Link";
+import classNames from "classnames";
 
 const Card = ({ title, description, imgSrc, href }) => (
-  <div className="md p-4 md:w-1/2" style={{ maxWidth: "544px" }}>
+  <div className="p-4 md:w-1/2" style={{ maxWidth: "544px" }}>
     <div
-      className={`${
-        imgSrc && "h-full"
-      }  overflow-hidden rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700`}
+      className={`h-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700`}
     >
       {imgSrc &&
         (href ? (
@@ -14,21 +13,28 @@ const Card = ({ title, description, imgSrc, href }) => (
             <Image
               alt={title}
               src={imgSrc}
-              className="object-cover object-center md:h-36 lg:h-48"
+              className="object-cover object-top md:h-36 lg:h-48"
               width={544}
               height={306}
+              layout="responsive"
             />
           </Link>
         ) : (
           <Image
             alt={title}
             src={imgSrc}
-            className="object-cover object-center md:h-36 lg:h-48"
+            className="object-cover object-top md:h-36 lg:h-48"
             width={544}
             height={306}
+            layout="responsive"
           />
         ))}
-      <div className="p-6">
+      <div
+        className={classNames(
+          { "border-t": imgSrc },
+          "border-gray-200 p-6 dark:border-gray-700"
+        )}
+      >
         <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
           {href ? (
             <Link href={href} aria-label={`Link to ${title}`}>

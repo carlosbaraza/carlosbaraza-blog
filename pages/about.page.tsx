@@ -5,7 +5,6 @@ import { AuthorFrontMatter } from "types/AuthorFrontMatter";
 
 const DEFAULT_LAYOUT = "AuthorLayout";
 
-// @ts-ignore
 export const getStaticProps: GetStaticProps<{
   authorDetails: { mdxSource: string; frontMatter: AuthorFrontMatter };
 }> = async () => {

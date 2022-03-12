@@ -1,3 +1,4 @@
+import Link from "@/components/Link";
 import SocialIcon from "@/components/social-icons";
 import siteMetadata from "@/data/siteMetadata";
 import React, { FC } from "react";
@@ -34,7 +35,10 @@ export const Header: FC<Props> = () => {
               Carlos Baraza
             </h2>
             <p className="text-lg leading-7 text-white">
-              I write software and other philosophical stuff.
+              I write software and other philosophical stuff.{" "}
+              <Link href="/about" className="text-slate-500">
+                Learn more about me &rarr;
+              </Link>
             </p>
             <div className="!mt-4 flex">
               <div className="-m-4 flex flex-wrap p-2">
