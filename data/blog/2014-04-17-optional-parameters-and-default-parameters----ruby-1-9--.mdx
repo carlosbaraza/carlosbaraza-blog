@@ -14,30 +14,32 @@ Do you fully understand what will happen if I define a method like this?
 
 If then we call the method in irb:
 
-    # Can not call with less parameters than the number of mandatory parameters
-    irb(main):009:0> my_method(1,2)
-    ArgumentError: wrong number of arguments (2 for 3+)
-      from (irb):1:in `my_method'
-      from (irb):9
-      from /usr/bin/irb:12:in `<main>'
+```
+# Can not call with less parameters than the number of mandatory parameters
+irb(main):009:0> my_method(1,2)
+ArgumentError: wrong number of arguments (2 for 3+)
+  from (irb):1:in `my_method'
+  from (irb):9
+  from /usr/bin/irb:12:in `<main>'
 
-    # First mandatory parameters are assigned
-    irb(main):010:0> my_method(1,2,3)
-    a: 1, b: 2, c: 15, d: 35, p: [], e: 3
+# First mandatory parameters are assigned
+irb(main):010:0> my_method(1,2,3)
+a: 1, b: 2, c: 15, d: 35, p: [], e: 3
 
-    # Then the first default-valued parameter gets a value.
-    irb(main):011:0> my_method(1,2,3,4)
-    a: 1, b: 2, c: 3, d: 35, p: [], e: 4
+# Then the first default-valued parameter gets a value.
+irb(main):011:0> my_method(1,2,3,4)
+a: 1, b: 2, c: 3, d: 35, p: [], e: 4
 
-    # Then both default-valued parameters get a value.
-    irb(main):012:0> my_method(1,2,3,4,5)
-    a: 1, b: 2, c: 3, d: 4, p: [], e: 5
+# Then both default-valued parameters get a value.
+irb(main):012:0> my_method(1,2,3,4,5)
+a: 1, b: 2, c: 3, d: 4, p: [], e: 5
 
-    # Finally the optional parameter get values within an Array object. irb(main):013:0> my_method(1,2,3,4,5,6)
-    a: 1, b: 2, c: 3, d: 4, p: [5], e: 6
+# Finally the optional parameter get values within an Array object. irb(main):013:0> my_method(1,2,3,4,5,6)
+a: 1, b: 2, c: 3, d: 4, p: [5], e: 6
 
-    irb(main):014:0> my_method(1,2,3,4,5,6,7)
-    a: 1, b: 2, c: 3, d: 4, p: [5, 6], e: 7
+irb(main):014:0> my_method(1,2,3,4,5,6,7)
+a: 1, b: 2, c: 3, d: 4, p: [5, 6], e: 7
+```
 
 So, to sum up, the order in which ruby assign the parameter is:
 

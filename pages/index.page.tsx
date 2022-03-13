@@ -2,7 +2,7 @@ import Link from "@/components/Link";
 import { PageSEO } from "@/components/SEO";
 import Tag from "@/components/Tag";
 import siteMetadata from "@/data/siteMetadata";
-import { getAllBlogFilesFrontMatter } from "@/lib/mdx";
+import { getAllBlogFilesFrontMatter } from "@/lib/getAllBlogFilesFrontMatter";
 import formatDate from "@/lib/utils/formatDate";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { PostFrontMatter } from "types/PostFrontMatter";

@@ -1,6 +1,6 @@
 import { PageSEO } from "@/components/SEO";
 import siteMetadata from "@/data/siteMetadata";
-import { getAllBlogFilesFrontMatter } from "@/lib/mdx";
+import { getAllBlogFilesFrontMatter } from "@/lib/getAllBlogFilesFrontMatter";
 import ListLayout from "@/layouts/ListLayout";
 import { POSTS_PER_PAGE } from "../index.page";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";

@@ -1,12 +1,9 @@
 import { MDXLayoutRenderer } from "@/components/MDXComponents";
 import PageTitle from "@/components/PageTitle";
 import generateRss from "@/lib/generate-rss";
-import {
-  formatSlug,
-  getAllBlogFilesFrontMatter,
-  getAuthorFileBySlug,
-  getBlogFileBySlug,
-} from "@/lib/mdx";
+import { getAuthorFileBySlug, getBlogFileBySlug } from "@/lib/mdx";
+import { formatSlug } from "@/lib/mdx-utils";
+import { getAllBlogFilesFrontMatter } from "@/lib/getAllBlogFilesFrontMatter";
 import fs from "fs";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { AuthorFrontMatter } from "types/AuthorFrontMatter";

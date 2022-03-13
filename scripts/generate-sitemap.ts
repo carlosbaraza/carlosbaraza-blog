@@ -1,51 +1,39 @@
-const fs = require("fs");
-const globby = require("globby");
-const matter = require("gray-matter");
-const prettier = require("prettier");
-const siteMetadata = require("../data/siteMetadata");
+import fs from "fs";
+import globby from "globby";
+import prettier from "prettier";
+import siteMetadata from "../data/siteMetadata";
+import { getAllBlogFilesFrontMatter } from "../lib/getAllBlogFilesFrontMatter";
 
 (async () => {
   const prettierConfig = await prettier.resolveConfig("./.prettierrc.js");
   const pages = await globby([
     "pages/*.page.js",
     "pages/*.page.tsx",
-    "data/blog/**/*.mdx",
-    "data/blog/**/*.md",
     "public/tags/**/*.xml",
     "!pages/_*.js",
     "!pages/_*.tsx",
     "!pages/api",
   ]);
 
+  const articles = await getAllBlogFilesFrontMatter();
+
   const sitemap = `
         <?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
             ${pages
               .map((page) => {
-                // Exclude drafts from the sitemap
-                if (page.search(".md") >= 1 && fs.existsSync(page)) {
-                  const source = fs.readFileSync(page, "utf8");
-                  const fm = matter(source);
-                  if (fm.data.draft) {
-                    return;
-                  }
-                  if (fm.data.canonicalUrl) {
-                    return;
-                  }
-                }
                 const path = page
                   .replace("pages/", "/")
-                  .replace("data/blog", "/blog")
                   .replace("public/", "/")
-                  .replace(".js", "")
-                  .replace(".tsx", "")
-                  .replace(".mdx", "")
-                  .replace(".md", "")
+                  .replace(".page.js", "")
+                  .replace(".page.tsx", "")
+                  .replace(".page.mdx", "")
+                  .replace(".page.md", "")
                   .replace("/feed.xml", "");
                 const route = path === "/index" ? "" : path;
                 if (
-                  page.search("pages/404.") > -1 ||
-                  page.search(`pages/[...slug].`) > -1
+                  page.indexOf("pages/404") > -1 ||
+                  page.indexOf(`pages/[...slug]`) > -1
                 ) {
                   return;
                 }
@@ -54,6 +42,19 @@ const siteMetadata = require("../data/siteMetadata");
                             <loc>${siteMetadata.siteUrl}${route}</loc>
                         </url>
                     `;
+              })
+              .join("")}
+
+            ${articles
+              .map((article) => {
+                if (article.draft) {
+                  return;
+                }
+                return `
+                        <url>
+                            <loc>${siteMetadata.siteUrl}/${article.slug}</loc>
+                        </url>
+                `;
               })
               .join("")}
         </urlset>

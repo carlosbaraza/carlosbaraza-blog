@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cross-env SOCKET=true node ./scripts/next-remote-watch.js ./data",
     "dev": "next dev",
-    "build": "next build && node ./scripts/generate-sitemap",
+    "build": "next build && swc-node ./scripts/generate-sitemap.ts",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
@@ -68,6 +68,7 @@
     "prettier-plugin-tailwindcss": "^0.1.4",
     "socket.io": "^4.4.0",
     "socket.io-client": "^4.4.0",
+    "swc-node": "^1.0.0",
     "typescript": "^4.6.1-rc"
   },
   "lint-staged": {

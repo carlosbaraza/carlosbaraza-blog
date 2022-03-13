@@ -1,5 +1,4 @@
 import fs from "fs";
-import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 import path from "path";
 import readingTime from "reading-time";
@@ -17,13 +16,14 @@ import remarkMath from "remark-math";
 import { AuthorFrontMatter } from "types/AuthorFrontMatter";
 import { PostFrontMatter } from "types/PostFrontMatter";
 import { Toc } from "types/Toc";
+import { getAllAuthorFilesFrontMatter } from "./getAllAuthorFilesFrontMatter";
+import { getAllBlogFilesFrontMatter } from "./getAllBlogFilesFrontMatter";
 import remarkCodeTitles from "./remark-code-title";
 import remarkExtractFrontmatter from "./remark-extract-frontmatter";
 import remarkImgToJsx from "./remark-img-to-jsx";
 import remarkTocHeadings from "./remark-toc-headings";
+import { root } from "./mdx-utils";
 import getAllFilesRecursively from "./utils/files";
-
-const root = process.cwd();
 
 export function getFiles(type: "blog" | "authors") {
   const prefixPaths = path.join(root, "data", type);
@@ -32,16 +32,6 @@ export function getFiles(type: "blog" | "authors") {
   return files.map((file) =>
     file.slice(prefixPaths.length + 1).replace(/\\/g, "/")
   );
-}
-
-export function formatSlug(slug: string) {
-  return slug.replace(/\.(mdx|md)/, "");
-}
-
-export function dateSortDesc(a: string, b: string) {
-  if (a > b) return -1;
-  if (a < b) return 1;
-  return 0;
 }
 
 export const getBlogFileBySlug = async (slug: string) => {
@@ -206,66 +196,3 @@ export const getAuthorFileBySlug = async (slug: string) => {
     },
   };
 };
-
-export async function getAllBlogFilesFrontMatter() {
-  const prefixPaths = path.join(root, "data", "blog");
-
-  const files = getAllFilesRecursively(prefixPaths);
-
-  const allFrontMatter: PostFrontMatter[] = [];
-
-  files.forEach((file: string) => {
-    // Replace is needed to work on Windows
-    const fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, "/");
-    // Remove Unexpected File
-    if (path.extname(fileName) !== ".md" && path.extname(fileName) !== ".mdx") {
-      return;
-    }
-    const source = fs.readFileSync(file, "utf8");
-    const matterFile = matter(source);
-
-    const frontmatter = matterFile.data as PostFrontMatter;
-    if ("draft" in frontmatter && frontmatter.draft === true) return;
-    allFrontMatter.push({
-      ...frontmatter,
-      slug: frontmatter.slug || formatSlug(fileName),
-      fileName,
-      date_published: frontmatter.date_published
-        ? new Date(frontmatter.date_published).toISOString()
-        : null,
-    });
-  });
-
-  return allFrontMatter.sort((a, b) =>
-    dateSortDesc(a.date_published, b.date_published)
-  );
-}
-
-export async function getAllAuthorFilesFrontMatter() {
-  const prefixPaths = path.join(root, "data", "authors");
-
-  const files = getAllFilesRecursively(prefixPaths);
-
-  const allFrontMatter: AuthorFrontMatter[] = [];
-
-  files.forEach((file: string) => {
-    // Replace is needed to work on Windows
-    const fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, "/");
-    // Remove Unexpected File
-    if (path.extname(fileName) !== ".md" && path.extname(fileName) !== ".mdx") {
-      return;
-    }
-    const source = fs.readFileSync(file, "utf8");
-    const matterFile = matter(source);
-
-    const frontmatter = matterFile.data as AuthorFrontMatter;
-
-    allFrontMatter.push({
-      ...frontmatter,
-      slug: frontmatter.slug || formatSlug(fileName),
-      fileName,
-    });
-  });
-
-  return allFrontMatter;
-}
