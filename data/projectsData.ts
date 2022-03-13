@@ -4,12 +4,14 @@ const projectsData = [
     description: `Built with NextJS, TypeScript, PostgresSQL, GraphQL. I am the CTO and lead developer for this company.`,
     href: "https://inpractise.com",
     imgSrc: "/content/images/inpractise-screenshot.png",
+    featured: true,
   },
   {
     title: "dashvar",
     description: `CSS Variables Library. Strong defaults for good looking designs. Inspired by Tailwind CSS.`,
     href: "https://github.com/dashvars/dashvar",
     imgSrc: "/content/images/dashvar-screenshot.png",
+    featured: true,
   },
   {
     title: "Wisertag",
@@ -22,6 +24,7 @@ const projectsData = [
     description: `Build and publish React Native app in one week for iOS and Android. Journaling app with to practice Stoicism and develop the stoic cardinal moral virtues.`,
     imgSrc: "/content/images/2020/07/stoic-journal-banner.png",
     href: "/stoic-journal",
+    featured: true,
   },
   {
     title: "WebAssembly London Meetup",
@@ -34,6 +37,7 @@ const projectsData = [
     description: `I won the official logo contest for WebAssembly.`,
     href: "/designed-the-official-logo-for-webassembly",
     imgSrc: "/content/images/2020/07/web-assembly-logo-presentation.png",
+    featured: true,
   },
   {
     title: "AirFishBowl (Video)",

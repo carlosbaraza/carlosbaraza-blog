@@ -36,8 +36,8 @@ export const Header: FC<Props> = () => {
             </h2>
             <p className="text-lg leading-7 text-white">
               I write software and other philosophical stuff.{" "}
-              <Link href="/about" className="text-slate-500">
-                Learn more about me &rarr;
+              <Link href="/about" className="font-bold text-slate-400">
+                About me (Resume) &rarr;
               </Link>
             </p>
             <div className="!mt-4 flex">

@@ -8,6 +8,8 @@ import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { PostFrontMatter } from "types/PostFrontMatter";
 import NewsletterForm from "@/components/NewsletterForm";
 import { Header } from "./index/components/Header";
+import Card from "@/components/Card";
+import projectsData from "@/data/projectsData";
 
 const MAX_DISPLAY = 5;
 
@@ -28,8 +30,9 @@ export default function Home({
         title={`${siteMetadata.title} - ${siteMetadata.author}`}
         description={siteMetadata.description}
       />
-      <div className="space-y-8 divide-y divide-gray-200 dark:divide-gray-700 md:space-y-8">
+      <div className="space-y-8">
         <Header />
+
         <div className="divide-y divide-gray-200 dark:divide-gray-700">
           <div className="space-y-2 pt-6 pb-6 md:space-y-5">
             <h1 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
@@ -90,24 +93,71 @@ export default function Home({
               );
             })}
           </ul>
+          {posts.length > MAX_DISPLAY && (
+            <div className="flex justify-center pt-12 text-base font-medium leading-6">
+              <Link
+                href="/blog"
+                className="rounded-2xl bg-primary-500 px-5 py-3 font-bold text-primary-50 transition-colors hover:bg-primary-700 "
+                aria-label="all posts"
+              >
+                Explore All Posts &rarr;
+              </Link>
+            </div>
+          )}
         </div>
+
+        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="space-y-2 pt-6 pb-6 md:space-y-5">
+            <h1 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+              Featured projects
+            </h1>
+            <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+              A busy mind is always looking for new challenges. These are some
+              of my projects. You can find more on{" "}
+              <Link
+                href="/projects"
+                className="font-semibold text-slate-500 hover:text-slate-600"
+              >
+                the projects page &rarr;
+              </Link>
+              .
+            </p>
+          </div>
+          <div className="py-12">
+            <div className="-m-4 flex flex-wrap justify-center">
+              {projectsData
+                .filter((p) => p.featured)
+                .map((d) => (
+                  <Card
+                    key={d.title}
+                    title={d.title}
+                    description={d.description}
+                    imgSrc={d.imgSrc}
+                    href={d.href}
+                  />
+                ))}
+            </div>
+          </div>
+
+          {posts.length > MAX_DISPLAY && (
+            <div className="flex justify-center pt-12 text-base font-medium leading-6">
+              <Link
+                href="/projects"
+                className="rounded-2xl bg-primary-500 px-5 py-3 font-bold text-primary-50 transition-colors hover:bg-primary-700 "
+                aria-label="all posts"
+              >
+                Explore All Projects &rarr;
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {siteMetadata.newsletter.provider !== "" && (
+          <div className="flex items-center justify-center pt-4">
+            <NewsletterForm />
+          </div>
+        )}
       </div>
-      {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base font-medium leading-6">
-          <Link
-            href="/blog"
-            className="rounded-2xl bg-primary-500 px-3 py-2 text-primary-50 transition-colors hover:bg-primary-700 "
-            aria-label="all posts"
-          >
-            All Posts &rarr;
-          </Link>
-        </div>
-      )}
-      {siteMetadata.newsletter.provider !== "" && (
-        <div className="flex items-center justify-center pt-4">
-          <NewsletterForm />
-        </div>
-      )}
     </>
   );
 }
