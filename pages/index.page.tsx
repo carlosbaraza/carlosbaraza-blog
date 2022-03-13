@@ -1,15 +1,14 @@
+import Card from "@/components/Card";
 import Link from "@/components/Link";
 import { PageSEO } from "@/components/SEO";
 import Tag from "@/components/Tag";
+import projectsData from "@/data/projectsData";
 import siteMetadata from "@/data/siteMetadata";
 import { getAllBlogFilesFrontMatter } from "@/lib/getAllBlogFilesFrontMatter";
 import formatDate from "@/lib/utils/formatDate";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { PostFrontMatter } from "types/PostFrontMatter";
-import NewsletterForm from "@/components/NewsletterForm";
 import { Header } from "./index/components/Header";
-import Card from "@/components/Card";
-import projectsData from "@/data/projectsData";
 
 const MAX_DISPLAY = 5;
 
@@ -151,12 +150,6 @@ export default function Home({
             </div>
           )}
         </div>
-
-        {siteMetadata.newsletter.provider !== "" && (
-          <div className="flex items-center justify-center pt-4">
-            <NewsletterForm />
-          </div>
-        )}
       </div>
     </>
   );

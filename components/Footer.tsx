@@ -2,11 +2,18 @@ import Link from "./Link";
 import siteMetadata from "@/data/siteMetadata";
 import SocialIcon from "@/components/social-icons";
 import { FaRssSquare } from "react-icons/fa";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export default function Footer() {
   return (
-    <footer>
-      <div className="mt-16 flex flex-col items-center">
+    <footer className="mt-16">
+      {siteMetadata.newsletter.provider !== "" && (
+        <div className="flex items-center justify-center pt-4">
+          <NewsletterForm />
+        </div>
+      )}
+
+      <div className="mt-12 flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
           <a
             className="text-sm text-gray-500 transition hover:text-gray-600"
