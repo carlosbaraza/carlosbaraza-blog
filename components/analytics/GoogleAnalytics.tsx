@@ -1,6 +1,18 @@
+import siteMetadata from "@/data/siteMetadata";
+import { Router } from "next/router";
 import Script from "next/script";
 
-import siteMetadata from "@/data/siteMetadata";
+const pageview = (url: string) => {
+  window.gtag?.("config", siteMetadata.analytics.googleAnalyticsId, {
+    page_location: window.location.href,
+    page_path: url,
+    page_title: document.title,
+  });
+};
+
+Router.events.on("routeChangeComplete", (url) => {
+  pageview(url);
+});
 
 const GAScript = () => {
   return (
