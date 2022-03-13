@@ -45,7 +45,12 @@ const Giscus = ({ mapping }: Props) => {
       "data-emit-metadata",
       siteMetadata.comment.giscusConfig.metadata
     );
+    script.setAttribute(
+      "data-input-position",
+      siteMetadata.comment.giscusConfig.inputPosition
+    );
     script.setAttribute("data-theme", commentsTheme);
+    script.setAttribute("data-lang", "en");
     script.setAttribute("crossorigin", "anonymous");
     script.async = true;
 
