@@ -25,7 +25,7 @@ export default function Home({
   return (
     <>
       <PageSEO
-        title={siteMetadata.title}
+        title={`${siteMetadata.title} - ${siteMetadata.author}`}
         description={siteMetadata.description}
       />
       <div className="space-y-8 divide-y divide-gray-200 dark:divide-gray-700 md:space-y-8">
