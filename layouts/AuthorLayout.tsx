@@ -19,6 +19,7 @@ export default function AuthorLayout({ children, frontMatter }: Props) {
     email,
     twitter,
     linkedin,
+    youtube,
     github,
   } = frontMatter;
 
@@ -53,6 +54,7 @@ export default function AuthorLayout({ children, frontMatter }: Props) {
             <div className="flex space-x-3 pt-6">
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />
+              <SocialIcon kind="youtube" href={youtube} />
               <SocialIcon kind="linkedin" href={linkedin} />
               <SocialIcon kind="twitter" href={twitter} />
             </div>

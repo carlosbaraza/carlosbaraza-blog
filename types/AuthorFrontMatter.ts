@@ -8,6 +8,7 @@ export type AuthorFrontMatter = {
   email: string;
   twitter: string;
   linkedin: string;
+  youtube: string;
   github: string;
   bio: string;
   fileName: string;
