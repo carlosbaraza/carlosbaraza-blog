@@ -10,7 +10,7 @@ const siteMetadata = {
     process.env.NODE_ENV === "production"
       ? "https://carlosbaraza.com"
       : "http://localhost:3001",
-  siteRepo: "https://github.com/timlrx/tailwind-nextjs-starter-blog",
+  siteRepo: "https://github.com/carlosbaraza/carlosbaraza-blog",
   siteLogo: "/static/images/logo/512w/logo-512w.png",
   image: "/static/images/avatar-carlos-baraza-speaking.jpg",
   socialBanner: "/static/images/twitter-card.jpg",
