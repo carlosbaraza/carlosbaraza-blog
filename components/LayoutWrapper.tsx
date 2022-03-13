@@ -1,13 +1,12 @@
-import siteMetadata from "@/data/siteMetadata";
 import headerNavLinks from "@/data/headerNavLinks";
-import Logo from "@/public/static/images/logo/SVG/logo.svg";
+import siteMetadata from "@/data/siteMetadata";
 import LogoWhite from "@/public/static/images/logo/SVG/logo-white.svg";
-import Link from "./Link";
-import SectionContainer from "./SectionContainer";
+import Logo from "@/public/static/images/logo/SVG/logo.svg";
+import { ReactNode } from "react";
 import Footer from "./Footer";
+import Link from "./Link";
 import MobileNav from "./MobileNav";
 import ThemeSwitch from "./ThemeSwitch";
-import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -15,7 +14,7 @@ interface Props {
 
 const LayoutWrapper = ({ children }: Props) => {
   return (
-    <SectionContainer>
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
       <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between py-10">
           <div>
@@ -54,7 +53,7 @@ const LayoutWrapper = ({ children }: Props) => {
         <main className="mb-auto">{children}</main>
         <Footer />
       </div>
-    </SectionContainer>
+    </div>
   );
 };
 

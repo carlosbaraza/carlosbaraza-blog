@@ -1,6 +1,5 @@
 import Link from "@/components/Link";
 import PageTitle from "@/components/PageTitle";
-import SectionContainer from "@/components/SectionContainer";
 import { BlogSEO } from "@/components/SEO";
 import Image from "@/components/Image";
 import Tag from "@/components/Tag";
@@ -43,7 +42,7 @@ export default function PostLayout({
   const { slug, fileName, date_published, title, tags } = frontMatter;
 
   return (
-    <SectionContainer>
+    <>
       <BlogSEO
         url={`${siteMetadata.siteUrl}/${slug}`}
         authorDetails={authorDetails}
@@ -52,7 +51,7 @@ export default function PostLayout({
       <ScrollTopAndComment />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
-          <header className="pt-6 xl:pb-6">
+          <header className="pt-6 xl:pb-12">
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
                 <div>
@@ -191,6 +190,6 @@ export default function PostLayout({
           </div>
         </div>
       </article>
-    </SectionContainer>
+    </>
   );
 }
