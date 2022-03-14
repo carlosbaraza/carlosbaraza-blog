@@ -13,12 +13,14 @@ I have noticed [multiple](https://stackoverflow.com/questions/14667713/how-to-co
 
 The answer is that you can convert String to Numbers just the same way than JavaScript, using `parseInt("42")`, `parseFloat("42")`, `+"42"` or `Number("42")`.
 
-    const numberString: string = "42";
+```typescript
+const numberString: string = "42";
 
-    const number: number = parseInt(numberString);
-    const number: number = parseFloat(numberString);
-    const number: number = +numberString;
-    const number: number = Number(numberString);
+const number: number = parseInt(numberString);
+const number: number = parseFloat(numberString);
+const number: number = +numberString;
+const number: number = Number(numberString);
+```
 
 Multiple approaches return the same number type parsing a string number
 
