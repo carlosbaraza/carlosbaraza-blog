@@ -16,7 +16,8 @@ export const Header: FC<Props> = () => {
               Build 🛠️, Launch 🚀, Repeat 🔁
             </h1>
             <p className="text-lg leading-7 text-white">
-              {siteMetadata.description}
+              Side hustle newsletter. Humble insights of a lifetime building
+              online products.
             </p>
           </div>
         </div>
