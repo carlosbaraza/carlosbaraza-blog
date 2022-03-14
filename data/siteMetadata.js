@@ -3,7 +3,7 @@ const siteMetadata = {
   author: "Carlos Baraza",
   headerTitle: "Build, Launch, Repeat",
   description:
-    "Side hustle newsletter. Humble insights of a lifetime building online products.",
+    "Side hustle newsletter. Humble insights of a lifetime building online products. I write software and other philosophical stuff.",
   language: "en-us",
   theme: "system", // system, dark or light
   siteUrl:
