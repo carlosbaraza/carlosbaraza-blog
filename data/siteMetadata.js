@@ -19,7 +19,7 @@ const siteMetadata = {
   twitter: "https://twitter.com/carlosbaraza",
   youtube: "https://youtube.com/carlosbaraza",
   facebook: undefined,
-  linkedin: "www.linkedin.com/in/carlos-baraza",
+  linkedin: "https://www.linkedin.com/in/carlos-baraza",
   locale: "en-US",
   analytics: {
     // If you want to use an analytics provider you have to add it to the
