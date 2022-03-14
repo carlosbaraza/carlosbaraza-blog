@@ -118,5 +118,14 @@ module.exports = withRemoteRefresh(
 
       return config;
     },
+    async redirects() {
+      return [
+        {
+          source: "/resume",
+          destination: "/about",
+          permanent: true,
+        },
+      ];
+    },
   })
 );
